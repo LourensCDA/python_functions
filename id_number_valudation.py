@@ -46,7 +46,7 @@ def validate_idno(val):
     test1 = test1 + test3
 
     # get the comparison digit
-    comp_digit = 0 if int(str(test1)[-1]) == 0 else 10 - int(str(test1)[-1])
+    comp_digit = 0 if int(str(test1)[-1]) == 0 else (10 - int(str(test1)[-1]))
 
     # compare comparison digit to final digit of id, if a match ID is valid
     if comp_digit == int(val[12]):
@@ -56,8 +56,22 @@ def validate_idno(val):
     return False
 
 
+# returns valid dob from SA ID
+def return_dob(val):
+    # requires function validate_idno
+    if validate_idno(val):
+        try:
+            check_date = datetime.datetime.strptime(val[:6], "%y%m%d")
+            return check_date.strftime("%Y-%m-%d")
+        except:
+            return None
+
+    return None
+
+
 # enter 13 digit id between ""
 if validate_idno(""):
     print("ID is valid")
+    print("DOB is " + return_dob(""))
 else:
     print("ID is NOT valid")
