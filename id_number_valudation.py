@@ -20,6 +20,10 @@ def validate_idno(val):
     except:
         return False
 
+    # check if last 7 digits are zeros
+    if int(val[6:]) == 0:
+        return False
+
     # algorithm check
     # sum all digits in non equal postions in string
     test1 = (
@@ -70,8 +74,8 @@ def return_dob(val):
 
 
 # enter 13 digit id between ""
-if validate_idno(""):
+if validate_idno("id goes here"):
     print("ID is valid")
-    print("DOB is " + return_dob(""))
+    # print("DOB is " + return_dob(""))
 else:
     print("ID is NOT valid")
